@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  ADMIN
+}
+
+enum StressLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         UserRole  @default(STUDENT)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  student      Student?
+
+  @@map("users")
+}
+
+model Student {
+  id          String             @id @default(cuid())
+  userId      String             @unique @map("user_id")
+  age         Int
+  gender      String
+  yearOfStudy Int                @map("year_of_study")
+  department  String
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  predictions StressPrediction[]
+  feedback    Feedback[]
+
+  @@map("students")
+}
+
+model StressPrediction {
+  id                  String      @id @default(cuid())
+  studentId           String      @map("student_id")
+  studyHours          Float       @map("study_hours")
+  sleepHours          Float       @map("sleep_hours")
+  screenTime          Float       @map("screen_time")
+  attendance          Float
+  assignmentsPerWeek  Int         @map("assignments_per_week")
+  examPressure        Int         @map("exam_pressure")
+  financialPressure   Int         @map("financial_pressure")
+  socialSupport       Int         @map("social_support")
+  physicalActivity    Float       @map("physical_activity")
+  backlogCount        Int         @map("backlog_count")
+  predictedStress     StressLevel @map("predicted_stress")
+  probabilityScore    Float       @map("probability_score")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  student             Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("stress_predictions")
+}
+
+model Dataset {
+  id         String   @id @default(cuid())
+  fileName   String   @map("file_name")
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+
+  @@map("datasets")
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  studentId String   @map("student_id")
+  message   String
+  rating    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("feedback")
+}

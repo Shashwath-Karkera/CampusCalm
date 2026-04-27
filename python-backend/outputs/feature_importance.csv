@@ -1,0 +1,16 @@
+feature,importance
+num__attendance,0.20119340453846754
+num__sleep_hours,0.18523454215877502
+num__study_hours,0.1200100374221306
+num__exam_pressure,0.11998416207029677
+num__assignments_per_week,0.11101619693223162
+num__screen_time,0.07193962303311062
+num__social_support,0.06314375176927353
+num__backlog_count,0.057393779446410075
+num__physical_activity,0.03528262910685827
+num__financial_pressure,0.03069649331634351
+num__age,0.0018245379729515127
+num__year_of_study,0.0011665343110128798
+cat__gender_Female,0.0004834862250184634
+cat__gender_Male,0.0004195861796499145
+cat__gender_Other,0.00021123551746977102

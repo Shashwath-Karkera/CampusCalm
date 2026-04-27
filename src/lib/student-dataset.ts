@@ -69,8 +69,8 @@ export function loadStudentDataset(): StudentStressRow[] {
 export function loadModelMetrics(): ModelMetric[] {
   if (!existsSync(modelMetricsPath)) {
     return [
-      { model: "Random Forest", accuracy: 0.94, precision: 0.94, recall: 0.94, f1: 0.94 },
-      { model: "Decision Tree", accuracy: 0.88, precision: 0.88, recall: 0.88, f1: 0.88 },
+      { model: "Random Forest", accuracy: 0.83, precision: 0.83, recall: 0.83, f1: 0.83 },
+      { model: "Decision Tree", accuracy: 0.75, precision: 0.75, recall: 0.75, f1: 0.75 },
     ];
   }
 
